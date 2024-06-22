@@ -1,0 +1,23 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <h1>Tutor: {{ tutor.tutor_fname }} {{ tutor.tutor_lname }}</h1>
+    
+        <div>
+        {% if tutor.tutor_image %}
+            <img src="{{ tutor.tutor_image.url }}">
+        {% endif %}
+        </div>
+    
+    <div style="margin-left:20px;margin-top:20px">
+        {% for tutor in tutor_list %}    
+            <p><strong>Years of Experience:</strong> {{ tutor.tutor_exp }}</p>
+            <p><strong>About Me:</strong> {{ tutor.tutor_funFact }}</p>
+            <p><strong>Hourly Rate:</strong> {{ tutor.tutor_hrRate }}</p>
+            <p><strong>Availability:</strong> {{ tutor.tutor.availability.all|join:", " }}</p>
+        {% endfor %}
+            <button type="button">
+                <a href="{% url 'tutor_list' %}">Go Back to Tutor List</a>
+            </button>
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+    <h1>Tutor List</h1>
+    {% if tutor_list %}
+        <ul>
+            {% for tutor in tutor_list %}
+                <li>
+                    <a href="{{tutor.get.absolute_url}}">{{ tutor.tutor_fname }} {{ tutor.tutor_lname }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no Tutors employed.</p>
+    {% endif %}
+{% endblock %}

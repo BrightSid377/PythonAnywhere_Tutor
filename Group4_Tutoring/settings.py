@@ -23,11 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(-d9)i(=3$jrwoajj$t07qoyph@u-lmyx7&s$=+wlvd+@d0gzh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # updated to FALSE mjl 6/17/2024
+# updated to True RT Needs to be on to debug.
+# If something doesnt work it wont work if this is true or false
 
 #for pythonanywhere deployment
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+
 
 
 # Application definition
@@ -39,8 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tutoring.apps.TutoringConfig',
-#    'django.extensions',
+    'catalog.apps.TutoringConfig',
+    'register.apps.RegisterConfig',
+    'crispy_forms',
+    'crispy_bootstrap5',
+
 ]
 
 MIDDLEWARE = [
@@ -127,8 +133,23 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#https://www.wplogout.com/export-database-diagrams-erd-from-django/   mjl 6/17/2024
-# GRAPH_MODELS ={
-#'all_applications': True,
-#'graph_models': True,
-#}
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
+
+import os
+MEDIA_URL = 'media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'djangoAppSandy'
+EMAIL_HOST_PASSWORD = 'kcyzhcqpxidvtkfo'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+SERVER_EMAIL = 'root@gmail.com'

@@ -1,0 +1,84 @@
+
+
+/* placeholder for stylesheet - mjl 6/17/2024 */
+
+/*************************************
+HEADING
+**************************************/
+h1  {
+ font-family: 'Changa One', sans-serif;
+ margin: 10px 0;
+ font-size: 1.75em;
+ font-weight: normal;
+ line-height: 0.5;
+ text-align: left;
+ color:    #0000FF;
+ }
+
+
+/*Nothing applied yet. Need to remove inline CSS*/
+
+:root {
+    --theme-color: #7395ae;
+    --theme-dark-color: #557a95;
+    --primary-font-color: #5d5c61;
+    --link-font-color: white;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+    color: var(--primary-font-color);
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--theme-dark-color);
+}
+
+header {
+    margin: 0;
+}
+
+header > h1 {
+    color: var(--theme-dark-color);
+    font-size: 2rem;
+    margin: 10px 0;
+    text-shadow: 2px 2px 3px gray;
+}
+
+nav {
+    background-color: var(--theme-color);
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 10px 0;
+}
+
+nav li {
+    padding: 10px 0;
+}
+
+nav li a {
+    padding: 10px 20px;
+    color: var(--link-font-color);
+}
+
+nav li a:hover {
+    background-color: var(--theme-dark-color);
+}
+
+nav {
+    font-size: larger;
+}
+
+main {
+    margin: 0;
+}
+
+main > section {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
