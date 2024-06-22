@@ -14,7 +14,10 @@ venv
 __pycache__/
 local_settings.py
 db.sqlite3
-media
+
+#ignored media to send logo
+#media
+
 # Ignore Django Migrations in Development if you are working on team
 # Only for Development only
 **/migrations/**
