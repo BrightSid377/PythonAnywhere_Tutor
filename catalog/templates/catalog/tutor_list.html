@@ -6,7 +6,9 @@
         <ul>
             {% for tutor in tutor_list %}
                 <li>
-                    <a href="{{tutor.get.absolute_url}}">{{ tutor.tutor_fname }} {{ tutor.tutor_lname }}</a>
+                    <!-- p><a href="% url 'tutor_detail' %}">{ tutor.tutor_fname }} { tutor.tutor_lname }}</a></p --> 
+                    <p><a href="{{tutor.get_absolute_url}}">{{ tutor.tutor_fname }} {{ tutor.tutor_lname }}</a></p> 
+                    <!-- a href="#">{ tutor.tutor_fname }} {{ tutor.tutor_lname }}</a -->
                 </li>
             {% endfor %}
         </ul>

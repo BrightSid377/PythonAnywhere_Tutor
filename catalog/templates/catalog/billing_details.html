@@ -1,0 +1,21 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <h1>Billing Information</h1>
+    <p></p>
+    <div style="margin-left:20px;margin-top:20px">
+        {% for bill in billing_details %}  
+            <p><strong>Invoice Number:</strong> {{ bill.bill_num }}</p>
+            <p><strong>Invoice Date:</strong> {{ bill.bill_date }}</p>
+            <p>Session Information:</p>
+            <!-- p><strong>Student Name:</strong> { bill.session.student.id }} </p -->
+            <!-- p><strong>Course Name:</strong> { bill.session.tutor.subject_name }}</p -->
+            <!-- p><strong>Tutor (Rate):</strong> { bill.session.tutor_lname }} {bill.session.tutor_hrRate}}</p -->
+            <!-- p><strong>Duration:</strong> { bill.session.session_duration }}</p -->
+            <p></p>
+            <!-- p><strong>Total Due:</strong> { bill.session.session_duration}} * {bill.session.tutor_hrRate }}</p -->
+        {% endfor %}
+            <button type="button">
+                <a href="{% url 'index' %}">Go Back to Home Page</a>
+            </button>
+    </div>
+{% endblock %}

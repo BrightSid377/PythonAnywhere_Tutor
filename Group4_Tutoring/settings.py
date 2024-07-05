@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-(-d9)i(=3$jrwoajj$t07qoyph@u-lmyx7&s$=+wlvd+@d0gzh
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# updated to FALSE mjl 6/17/2024
+# updated to FALSE mjl 7/2/2024
 # updated to True RT Needs to be on to debug.
 # If something doesnt work it wont work if this is true or false
 

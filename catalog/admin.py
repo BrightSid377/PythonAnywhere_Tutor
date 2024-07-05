@@ -3,16 +3,18 @@
 # updated to show
 
 from django.contrib import admin
-from .models import Availability, Tutor, Subject, Session, SessionInstance, Payment, Student, Parent_Guardian, EmergencyContact
+from .models import Availability, Tutor, Subject, Session, SessionInstance, PaymentMethod, Student, Parent_Guardian, \
+    EmergencyContact, BillDetail
 
 admin.site.register(Availability)  # should be based on data models
 admin.site.register(Tutor)
 admin.site.register(Subject)
 admin.site.register(Session)
-admin.site.register(Payment)
+admin.site.register(PaymentMethod)
 admin.site.register(Student)
 admin.site.register(Parent_Guardian)
 admin.site.register(EmergencyContact)
+admin.site.register(BillDetail)
 
 
 @admin.register(SessionInstance)

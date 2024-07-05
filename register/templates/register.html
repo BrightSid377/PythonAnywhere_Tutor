@@ -8,15 +8,90 @@
 
 {% block content %}
     <form method="POST" class="form-group">
-   {% csrf_token %}
+        {% csrf_token %}
 
-   {{ form|crispy }}
-   <button type="submit" class="btn btn-success">Register</button>
+        <div>
+            <h3>Are you under 18?</h3>
+            <label for="id_under_18">{{ form.under_18.label }}</label>
+            {{ form.under_18 }}
+            <p></p>
+            <p></p>
+        </div>
 
+        <div id="user-tools" style="display: none;">
+            <h3>Account Username & Password</h3>
+            {{ form.username|as_crispy_field }}
+            {{ form.password1|as_crispy_field }}
+            {{ form.password2|as_crispy_field }}
+        </div>
+
+
+        <div id="student-fields" style="display:none;">
+            <h3>Student Information</h3>
+            {{ form.stud_first_name|as_crispy_field }}
+            {{ form.stud_last_name|as_crispy_field }}
+            {{ form.stud_dob|as_crispy_field }}
+            {{ form.stud_email|as_crispy_field }}
+            {{ form.stud_address_line_1|as_crispy_field }}
+            {{ form.stud_address_line_2|as_crispy_field }}
+            {{ form.stud_city|as_crispy_field }}
+            {{ form.stud_state|as_crispy_field }}
+            {{ form.stud_zip_code|as_crispy_field }}
+        </div>
+
+        <div id="parent-fields" style="display:none;">
+            <h3>Parent/Guardian Information</h3>
+            {{ form.parent_first_name|as_crispy_field }}
+            {{ form.parent_last_name|as_crispy_field }}
+            {{ form.parent_address_line_1|as_crispy_field }}
+            {{ form.parent_address_line_2|as_crispy_field }}
+            {{ form.parent_city|as_crispy_field }}
+            {{ form.parent_state|as_crispy_field }}
+            {{ form.parent_zip_code|as_crispy_field }}
+            {{ form.parent_email|as_crispy_field }}
+        </div>
+
+        <div id="emergency-fields" style="display:none;">
+            <h3>Emergency Contact (cannot be a parent)</h3>
+            {{ form.emergency_contact_name|as_crispy_field }}
+            {{ form.emergency_contact_relationship|as_crispy_field }}
+            {{ form.emergency_contact_phone|as_crispy_field }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Register</button>
     </form>
 
     <p><strong>Already have an account?</strong>
           <a href="{% url 'login' %}"> Login Now</a>
     </p>
+
+    <script>
+        function toggleParentGuardianFields() {
+            var userTools = document.getElementById('user-tools');
+            var under18 = document.getElementById('id_under_18').checked;
+            var studentFields = document.getElementById('student-fields');
+            var parentFields = document.getElementById('parent-fields');
+            var emergencyFields = document.getElementById('emergency-fields');
+
+            userTools.style.display = 'block';
+
+            studentFields.style.display = 'block';
+            if (under18) {
+                parentFields.style.display = 'block';
+                emergencyFields.style.display = 'block';
+            } else {
+                parentFields.style.display = 'none';
+                emergencyFields.style.display = 'none';
+            }
+        }
+
+        document.getElementById('id_under_18').addEventListener('change', toggleParentGuardianFields);
+
+        window.onload = function() {
+            toggleParentGuardianFields();
+        };
+    </script>
 {% endblock %}
 </html>
+
+

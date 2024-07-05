@@ -1,0 +1,25 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <h1>Payment Method</h1>
+    <p></p>
+    <div style="margin-left:20px;margin-top:20px">
+        {% for pymt in payment_method %} 
+            <p><strong>Payment Method:</strong> {{ pymt.payment_method }}</p>
+            <!-- see above, add more fields to payment table mjl 6/27 -->
+            <p>Credit Card Information:</p>
+            <p><strong>Name on Card:</strong> {{ pymt.name_on_card }} </p>
+            <p><strong>Credit Card Number:</strong> {{ pymt.card_nbr }}</p>
+            <p><strong>Expiration Date:</strong> {{ pymt.exp_date }}</p>
+            <p><strong>CVV:</strong> {{ pymt.cvv }}</p>
+            <p><strong>Same as Home Address:</strong> {{ pymt.pymt_acct_same }} </p>
+            <p><strong>Bill Addr1:</strong> {{ pymt.pymt_addr1 }}</p>
+            <p><strong>Bill Addr2:</strong> {{ pymt.pymt_addr2 }}</p>
+            <p><strong>Bill City:</strong> {{ pymt.pymt_city }} </p>
+            <p><strong>Bill State:</strong> {{ pymt.pymt_state }}</p>
+            <p><strong>Bill Zip:</strong> {{ pymt.pymt_zip }}</p>
+       {% endfor %}
+            <button type="button">
+                <a href="{% url 'my_session' %}">Go Back to Sessions Page</a>
+            </button>
+    </div>
+{% endblock %}

@@ -1,4 +1,6 @@
+
 {% load static %}
+
 <!doctype html>
 <html lang="en">
 
@@ -15,30 +17,48 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid">        
-        <a class="navbar-brand" href="{% url 'index' %}">
-            <img src='media/images/logo.png' alt="Logo" style="width:120px;">
-        </a>
+
+         
+        <a class="navbar-brand" href="{% url 'index' %}" > 
+            <img src='/media/images/logo.png' alt="Logo" style="width:120px;">
+            <!--img src='static/images/logo.png' alt="Logo" style="width:120px;"-- will run from media but not static? -->
+            <!--img src="% static 'images/logo.png' %}" alt="Logo" style="width:120px;" -->
+         </a> 
+            
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                   
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'tutor_list' %}">Find a Tutor</a>
                 </li>
-                {% if user.is_authenticated %}
-                    <li><a class="nav-link" href="{% url 'my_sessions' %}">My Sessions</a></li>
-                {% endif %}
-
-                {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Make a Payment</a>  <!--  Change URL to Payment Page   -->
-                    </li>
-                {% endif %}    
+                <!--% if user.is_authenticated %}  -->
+                <li>
+                    <a class="nav-link" href="{% url 'my_session' %}">My Sessions</a>
+                </li>
+                <!--% endif %}  -->
+                <li>
+                    <a class="nav-link" href="{% url 'tutor_list' %}">My Bills</a>
+                </li>
+                
+                <!--% if user.is_authenticated %} -->   
+                <li class="nav-item">  <!-- need to update for bill detail -->
+                    <!-- a class="nav-link" href="% url 'billing_details' 1 %}">Make a Payment</a -->
+                    <a class="nav-link" href="{% url 'tutor_list'%}">Make a Payment</a>
+                    <!-- a class="nav-link" href="% url 'payment_create'%}">Make a Payment</a -->
+                    <!-- a class="nav-link" href="{PaymentMethod.get_absolute_url}}">Make a Payment</a -->
+                    <!-- a class="nav-link" href="{BillDetail.get_absolute_url}}">Make a Payment</a --> 
+                </li>
+                <!--% endif %}   -->
             
             </ul>
 
         </div>
+    
         <!--Display Login/Logout right-justified in navbar -->
         <ul class="nav navbar-nav ml-auto">
             {% if user.is_authenticated %}
@@ -70,8 +90,8 @@
 
 <div class="container">
     <br/>
-    {% block content %}
-
+    {% block content %} 
+        
     {% endblock %}
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

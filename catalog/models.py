@@ -2,7 +2,6 @@
 # RT Edited some functions and required values of attributes
 # note mjl 6/17/2024 modified from lib project
 
-# testing - Matt
 
 from django.db import models
 from django.urls import reverse
@@ -64,15 +63,55 @@ class EmergencyContact(models.Model):
         return self.emcont_name
 
 
-class Payment(models.Model):
-    payment_id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for Payments')
-    payment_amount = models.IntegerField()
+class PaymentMethod(models.Model):
+    # pymt_method_id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for Payment Method')
+    # payment_amount = models.IntegerField() # will be calculated based on duration and tutor rate
     payment_method = models.CharField(max_length=200)
+    # added new fields for payment screen mjl 6/27/2024
+    name_on_card = models.CharField(max_length=200, default="none")
+    card_nbr = models.IntegerField(default=0)
+    exp_date = models.CharField(max_length=20, default="01/24")  # will be 2 digit month and year
+    cvv = models.IntegerField(default=0)
+    pymt_acct_same = models.BooleanField()  # for checkbox to indicate if same as student address
+    pymt_addr1 = models.CharField(max_length=200)
+    pymt_addr2 = models.CharField(max_length=200)
+    pymt_city = models.CharField(max_length=200)
+    pymt_state = models.CharField(max_length=200)
+    pymt_zip = models.IntegerField()
+    # end of new fields added 6/27
     student_id = models.ForeignKey('Student', on_delete=models.RESTRICT, null=True)
-    session_id = models.ForeignKey('Session', on_delete=models.RESTRICT, null=True)
+    # shouldn't need this session id, will connect thorugh bill details mjl 7/2
+    # session_id = models.ForeignKey('Session', on_delete=models.RESTRICT, null=True)
 
     def __str__(self):
-        return str(self.payment_amount)
+        return str(self.pymt_method_id)
+
+    def get_absolute_url(self):
+        return reverse('payment_create', args=[str(self.id)])
+
+
+# this table to represent the invoice that the custom would be presented mjl 7/2
+class BillDetail(models.Model):
+    # bill_id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for Bill Address')
+    bill_num = models.IntegerField(default = 12345)
+    bill_date = models.CharField(max_length=20,default = '07/02/2024')
+    #bill_city = models.CharField(max_length=200)
+    #bill_state = models.CharField(max_length=200)
+    # removing link to payment method, will address separately mjl 7/2
+    # pymt_method_id = models.ForeignKey('PaymentMethod', on_delete=models.RESTRICT, blank=True, null=True)
+    session_id = models.ForeignKey('Session', on_delete=models.RESTRICT, blank=True, null=True)
+
+    #def get_absolute_url(self):
+    #    """Returns the URL to access a particular author instance."""
+    #    return reverse('billing_details', args=[str(self.bill_id)])
+
+    def get_absolute_url(self):
+        return reverse('billing_details', args=[str(self.id)])
+
+    def __str__(self):
+        return str(self.bill_num)
+
+
 
 
 class Session(models.Model):
@@ -106,12 +145,16 @@ class SessionInstance(models.Model):
     class Meta:
         ordering = ['scheduled_date']
 
+    def get_absolute_url(self):
+        """Returns the URL to access a particular author instance."""
+        return reverse('my_session', args=[str(self.id)])
+
     def __str__(self):
         return f'{self.id}, {self.scheduled_date}'
 
 
 class Tutor(models.Model):
-    tutor_id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a Tutor')
+    # tutor_id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a Tutor')
     tutor_fname = models.CharField(max_length=50)
     tutor_lname = models.CharField(max_length=50)
     tutor_address1 = models.CharField(max_length=150)
@@ -130,11 +173,13 @@ class Tutor(models.Model):
         ordering = ['tutor_lname', 'tutor_fname']
 
     def get_absolute_url(self):
-        return reverse('tutor_detail', args=[str(self.tutor_id)])
-
+        return reverse('tutor_detail', args=[str(self.id)])
+        # trying self id mjl 7/2/2024
 
     def __str__(self):
         return f'{self.tutor_lname}, {self.tutor_fname}'
+
+    # return render(request=request,template_name="tutor_detail.html")
 
 
 class Parent_Guardian(models.Model):
@@ -171,6 +216,8 @@ class Student(models.Model):
     student_dob = models.DateField(null=True, blank=False)
     parent_id = models.ForeignKey('Parent_Guardian', on_delete=models.RESTRICT, blank=True, null=True)
     emcont_id = models.ForeignKey('EmergencyContact', on_delete=models.RESTRICT, blank=True, null=True)
+    # removing pointer to bill detail table , will go via sessions to find and calculate bills
+    # bill_id = models.ForeignKey('BillDetail', on_delete=models.RESTRICT, blank=True, null=True)
 
     class Meta:
         ordering = ['student_lname', 'student_fname']
